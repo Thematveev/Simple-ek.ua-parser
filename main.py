@@ -1,6 +1,7 @@
 from selenium.webdriver import Chrome, ChromeOptions
 from selenium.webdriver.common.by import By
 from time import sleep
+import database
 
 options = ChromeOptions()
 options.add_argument('--window-size=1920,1080')
@@ -26,6 +27,7 @@ def get_info_from_block(block):
         .get_attribute('src')
 
     print(name, link, img)
+    database.add_item(name, link, img)
 
 
 def main():
@@ -40,6 +42,8 @@ def main():
         except:
             driver.close()
             break
+
+    database.commit()
 
 
 
